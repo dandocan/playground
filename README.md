@@ -4,7 +4,8 @@ A personal project monorepo using npm workspaces, Next.js (App Router), and Nest
 
 ## Requirements
 
-- Node.js 22.12+ (use `nvm use` with the included `.nvmrc`)
+- Node.js 22.22.3+ on the 22.x LTS line (use `nvm use` with the included `.nvmrc`);
+  see `engines.node` in `package.json` for other supported releases
 - npm 10+
 
 ## Quick start
