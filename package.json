@@ -1,0 +1,19 @@
+{
+  "name": "playground-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev:api": "npm run start:dev --workspace @playground/api",
+    "dev:web": "npm run dev --workspace @playground/web",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspace @playground/api",
+    "test:e2e": "npm run test:e2e --workspace @playground/api"
+  }
+}
