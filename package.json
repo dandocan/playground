@@ -1,0 +1,22 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal project monorepo with Next.js and NestJS",
+  "packageManager": "pnpm@10.34.7",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others --names web,api \"pnpm --filter web run dev\" \"pnpm --filter api run start:dev\"",
+    "build": "pnpm -r run build",
+    "start": "concurrently --kill-others --names web,api \"pnpm --filter web run start\" \"pnpm --filter api run start:prod\"",
+    "lint": "pnpm -r run lint",
+    "test": "pnpm -r run test",
+    "test:e2e": "pnpm --filter api run test:e2e"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
