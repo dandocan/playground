@@ -1,18 +1,18 @@
 # Playground
 
-A personal project monorepo using npm workspaces, Next.js (App Router), and NestJS.
+A personal project monorepo using pnpm workspaces, Next.js (App Router), and NestJS.
 
 ## Requirements
 
 - Node.js 22.22.3+ on the 22.x LTS line (use `nvm use` with the included `.nvmrc`);
   see `engines.node` in `package.json` for other supported releases
-- npm 10+
+- pnpm 10.34.7 (pinned in `package.json`; install with `npm install --global pnpm@10.34.7`)
 
 ## Quick start
 
 ```sh
-npm ci
-npm run dev
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
 - Frontend: http://localhost:3000
@@ -37,16 +37,18 @@ Run these from the repository root:
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start both apps in watch mode |
-| `npm run build` | Build both apps |
-| `npm start` | Start both production servers after building |
-| `npm run lint` | Lint both apps |
-| `npm test` | Run backend unit tests and frontend proxy configuration tests |
-| `npm run test:e2e` | Run backend HTTP integration tests |
+| `pnpm dev` | Start both apps in watch mode |
+| `pnpm build` | Build both apps |
+| `pnpm start` | Start both production servers after building |
+| `pnpm lint` | Lint both apps |
+| `pnpm test` | Run backend unit tests and frontend proxy configuration tests |
+| `pnpm test:e2e` | Run backend HTTP integration tests |
 
-To target one workspace, use commands such as `npm run dev --workspace web`
-or `npm run start:dev --workspace api`. Install dependencies from the root;
-the repository uses a single `package-lock.json`.
+To target one workspace, use commands such as `pnpm --filter web dev`
+or `pnpm --filter api start:dev`. Install dependencies from the root;
+`pnpm-workspace.yaml` defines the workspaces and the repository uses a single
+`pnpm-lock.yaml`. Use `pnpm install` when changing dependencies and
+`pnpm install --frozen-lockfile` in CI to enforce the committed lockfile.
 
 ## Configuration
 
@@ -54,10 +56,10 @@ The defaults require no environment files. To use a different backend address,
 set `API_PORT` for NestJS and `API_URL` for Next.js:
 
 ```sh
-API_PORT=4001 API_URL=http://localhost:4001 npm run dev
+API_PORT=4001 API_URL=http://localhost:4001 pnpm dev
 ```
 
 `API_URL` is server-only and must include the protocol.
 Next.js resolves rewrites at build time for production, so set `API_URL` when
-running `npm run build` as well. `PORT` controls the Next.js port (default 3000);
+running `pnpm build` as well. `PORT` controls the Next.js port (default 3000);
 `API_PORT` independently controls the NestJS port (default 3001).

@@ -3,19 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "description": "Personal project monorepo with Next.js and NestJS",
-  "workspaces": [
-    "apps/*"
-  ],
+  "packageManager": "pnpm@10.34.7",
   "engines": {
     "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
   },
   "scripts": {
-    "dev": "concurrently --kill-others --names web,api \"npm run dev --workspace web\" \"npm run start:dev --workspace api\"",
-    "build": "npm run build --workspaces",
-    "start": "concurrently --kill-others --names web,api \"npm run start --workspace web\" \"npm run start:prod --workspace api\"",
-    "lint": "npm run lint --workspaces",
-    "test": "npm run test --workspaces --if-present",
-    "test:e2e": "npm run test:e2e --workspace api"
+    "dev": "concurrently --kill-others --names web,api \"pnpm --filter web run dev\" \"pnpm --filter api run start:dev\"",
+    "build": "pnpm -r run build",
+    "start": "concurrently --kill-others --names web,api \"pnpm --filter web run start\" \"pnpm --filter api run start:prod\"",
+    "lint": "pnpm -r run lint",
+    "test": "pnpm -r run test",
+    "test:e2e": "pnpm --filter api run test:e2e"
   },
   "license": "UNLICENSED",
   "devDependencies": {
