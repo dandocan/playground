@@ -1,0 +1,24 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal project monorepo with Next.js and NestJS",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others --names web,api \"npm run dev --workspace web\" \"npm run start:dev --workspace api\"",
+    "build": "npm run build --workspaces",
+    "start": "concurrently --kill-others --names web,api \"npm run start --workspace web\" \"npm run start:prod --workspace api\"",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces --if-present",
+    "test:e2e": "npm run test:e2e --workspace api"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
