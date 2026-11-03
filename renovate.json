@@ -5,10 +5,6 @@
     ":enableVulnerabilityAlerts",
     ":semanticCommits"
   ],
-  "packageManager": "pnpm",
-  "pnpm": {
-    "supportPolicy": ["current"]
-  },
   "ignoreDeps": [],
   "ignorePresets": [],
   "assignees": ["@dandocan"],
