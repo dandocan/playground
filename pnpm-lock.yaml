@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       concurrently:
-        specifier: ^10.0.6
+        specifier: 10.0.6
         version: 10.0.6
 
   apps/api:
@@ -31,46 +31,46 @@ importers:
         version: 7.8.2
     devDependencies:
       '@nestjs/cli':
-        specifier: ^12.0.0
+        specifier: 12.0.9
         version: 12.0.9(@types/node@24.19.2)(prettier@3.9.10)
       '@nestjs/schematics':
-        specifier: ^12.0.0
+        specifier: 12.0.9
         version: 12.0.9(chokidar@5.0.0)(prettier@3.9.10)(typescript@6.0.3)
       '@nestjs/testing':
-        specifier: ^12.0.1
+        specifier: 12.2.0
         version: 12.2.0(@nestjs/common@12.2.0(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@12.2.0)(@nestjs/platform-express@12.2.0)
       '@types/express':
-        specifier: ^5.0.0
+        specifier: 5.0.6
         version: 5.0.6
       '@types/node':
-        specifier: ^24.0.0
+        specifier: 24.19.2
         version: 24.19.2
       '@types/supertest':
-        specifier: ^7.0.0
+        specifier: 7.2.1
         version: 7.2.1
       '@vitest/coverage-v8':
         specifier: ^4.1.2
         version: 4.1.12(vitest@4.1.12)
       oxlint:
-        specifier: ^1.58.0
+        specifier: 1.89.0
         version: 1.89.0(oxlint-tsgolint@7.0.2004)
       oxlint-tsgolint:
-        specifier: ^7.0.2001
+        specifier: 7.0.2004
         version: 7.0.2004
       prettier:
-        specifier: ^3.4.2
+        specifier: 3.9.10
         version: 3.9.10
       source-map-support:
-        specifier: ^0.5.21
+        specifier: 0.5.21
         version: 0.5.21
       supertest:
-        specifier: ^7.0.0
+        specifier: 7.3.1
         version: 7.3.1
       typescript:
         specifier: ^6.0.2
         version: 6.0.3
       vite:
-        specifier: ^8.0.0
+        specifier: 8.3.4
         version: 8.3.4(@types/node@24.19.2)
       vitest:
         specifier: ^4.1.2
@@ -89,7 +89,7 @@ importers:
         version: 19.3.0(react@19.3.0)
     devDependencies:
       '@types/node':
-        specifier: ^20
+        specifier: 20.19.43
         version: 20.19.43
       '@types/react':
         specifier: ^19
