@@ -1,0 +1,70 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":enableVulnerabilityAlerts",
+    ":semanticCommits"
+  ],
+  "packageManager": "pnpm",
+  "pnpm": {
+    "supportPolicy": ["current"]
+  },
+  "ignoreDeps": [],
+  "ignorePresets": [],
+  "assignees": ["@dandocan"],
+  "reviewers": ["@dandocan"],
+  "postUpdateOptions": ["pnpmDedupe"],
+  "rangeStrategy": "auto",
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "chore(deps): ",
+  "prBodyColumns": ["Package", "Type", "Update", "Change"],
+  "schedule": ["after 10pm every weekday", "before 5am on Monday"],
+  "timezone": "UTC",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "🤖 Dependency Dashboard",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  },
+  "packageRules": [
+    {
+      "description": "Automatically merge minor and patch updates for dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Group Node.js updates",
+      "matchDatasources": ["node"],
+      "groupName": "Node.js"
+    },
+    {
+      "description": "Group TypeScript updates",
+      "matchPackagePatterns": ["^typescript$"],
+      "groupName": "TypeScript"
+    },
+    {
+      "description": "Group ESLint and related packages",
+      "matchPackagePatterns": ["^(eslint|@typescript-eslint)"],
+      "groupName": "ESLint"
+    },
+    {
+      "description": "Group testing dependencies",
+      "matchPackagePatterns": ["^(vitest|@vitest)", "^jest"],
+      "groupName": "Testing"
+    },
+    {
+      "description": "Disable automerge for major updates",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "description": "Require manual approval for production dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["breaking-change"]
+    }
+  ]
+}
