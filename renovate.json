@@ -33,23 +33,30 @@
     },
     {
       "description": "Group Node.js updates",
-      "matchDatasources": ["node"],
+      "matchDatasources": ["node-version"],
       "groupName": "Node.js"
     },
     {
       "description": "Group TypeScript updates",
-      "matchPackagePatterns": ["^typescript$"],
-      "groupName": "TypeScript"
+      "groupName": "TypeScript",
+      "matchPackageNames": [
+        "/^typescript$/"
+      ]
     },
     {
       "description": "Group ESLint and related packages",
-      "matchPackagePatterns": ["^(eslint|@typescript-eslint)"],
-      "groupName": "ESLint"
+      "groupName": "ESLint",
+      "matchPackageNames": [
+        "/^(eslint|@typescript-eslint)/"
+      ]
     },
     {
       "description": "Group testing dependencies",
-      "matchPackagePatterns": ["^(vitest|@vitest)", "^jest"],
-      "groupName": "Testing"
+      "groupName": "Testing",
+      "matchPackageNames": [
+        "/^(vitest|@vitest)/",
+        "/^jest/"
+      ]
     },
     {
       "description": "Disable automerge for major updates",
