@@ -34,6 +34,7 @@ Keep frontend presentation and routing in the web app, and backend endpoints and
 - API unit tests use Vitest and live alongside source as `*.spec.ts`; HTTP integration tests live in `apps/api/test` and use the e2e Vitest config.
 - Web tests use Node's built-in test runner and live in `apps/web/test`.
 - Prefer the owning app's test command while iterating, then use the root commands from the README when a change spans apps.
+- Pull requests run [`pull-request.yml`](workflows/pull-request.yml): `pnpm lint`, `pnpm test`, and `pnpm test:e2e` in one job, and `pnpm build` in another.
 
 ## Keeping This Guide Useful
 
