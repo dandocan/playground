@@ -4,13 +4,13 @@ The API is a NestJS HTTP service. Root setup and workspace commands are document
 
 ## Structure
 
-- [`src/main.ts`](../src/main.ts) creates the Nest application and listens on `API_PORT` (default `3001`).
+- [`src/main.ts`](../src/main.ts) creates the Nest application and listens on `PORT`, then `API_PORT` (default `3001`). Vercel supplies `PORT`.
 - [`src/app.module.ts`](../src/app.module.ts) is the root module and composes controllers and providers.
 - Controllers define HTTP routes and delegate application behavior to providers or services.
 - Services hold application behavior that should not be coupled to HTTP transport.
 - `src/**/*.spec.ts` contains unit tests; `test/` contains HTTP integration tests.
 
-The current baseline exposes `GET /`, which returns `Hello World!`. The web app exposes this backend through `/api`, but Nest receives the path without that prefix.
+The current baseline exposes `GET /`, which returns `Hello World!`. The web app exposes this backend through its runtime `/api` proxy, but Nest receives the path without that prefix. On Vercel, `api` is an internal NestJS service with no public rewrite; `web` calls it using its `API_URL` binding. The proxy makes these endpoints public, so internal service routing does not replace endpoint authentication.
 
 ## Adding an Endpoint
 
