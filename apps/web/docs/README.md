@@ -7,14 +7,17 @@ The web app is a Next.js App Router frontend. Root setup and workspace commands 
 - [`src/app/page.tsx`](../src/app/page.tsx) implements the home route.
 - [`src/app/layout.tsx`](../src/app/layout.tsx) defines the shared root layout and document metadata.
 - `src/app/*.module.css` contains page-scoped styles; `src/app/globals.css` contains global styles.
-- [`next.config.ts`](../next.config.ts) owns the backend rewrite and Next.js configuration.
+- [`next.config.ts`](../next.config.ts) owns Next.js configuration.
+- [`src/app/api/[[...path]]/route.ts`](../src/app/api/%5B%5B...path%5D%5D/route.ts) owns the runtime backend proxy.
 - `public/` holds static assets, and `test/` holds web-specific tests.
 
 ## Backend Requests
 
-Call the backend through same-origin paths such as `fetch('/api/users')`. Next.js rewrites `/api/:path*` to `API_URL` and removes the `/api` prefix before forwarding the request. The default backend URL is `http://localhost:3001`.
+Call the backend through same-origin paths such as `fetch('/api/users')`. The Node.js route handler proxies `/api` and `/api/*` to `API_URL`, removing the `/api` prefix before forwarding the request. It forwards HTTP methods, bodies, query strings, application headers, and upstream statuses without caching or following redirects. Request bodies are buffered; response bodies are streamed.
 
-Keep `/api` reserved for the backend proxy. Adding a Next.js route under that prefix can conflict with the rewrite. `API_URL` is used by Next.js configuration and must be set when building for a non-default production backend.
+On Vercel, the `web` service calls the internal `api` service through a binding that injects `API_URL`. Do not set it manually. Bindings are runtime-only: do not use them in Next.js configuration, static generation, or middleware. The proxy logs missing configuration and connection failures and returns explicit 500 or 502 responses.
+
+Outside Vercel, `API_URL` can override the default `http://localhost:3001` at runtime, including after a production build. Keep `/api` reserved for the backend proxy; adding another Next.js route under that prefix can shadow it.
 
 ## UI Changes
 
@@ -33,4 +36,4 @@ pnpm --filter web lint
 pnpm --filter web build
 ```
 
-The current test suite uses Node's built-in test runner to verify the Next.js rewrite configuration. Add tests alongside the existing files in `test/` and use the built-in `node:test` and `node:assert` APIs unless the project adopts another runner.
+The current test suite uses Node's built-in test runner to verify runtime proxy behavior against a local HTTP server and the Vercel service configuration. Add tests alongside the existing files in `test/` and use the built-in `node:test` and `node:assert` APIs unless the project adopts another runner.

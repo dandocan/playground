@@ -14,6 +14,7 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.ctas}>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- The API returns a backend response, not a Next.js page. */}
           <a
             className={styles.primary}
             href="/api"
