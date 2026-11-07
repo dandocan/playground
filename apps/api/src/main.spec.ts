@@ -23,6 +23,6 @@ describe('API bootstrap', () => {
 
     await import('./main.js');
 
-    expect(listen).toHaveBeenCalledExactlyOnceWith(expected);
+    await vi.waitFor(() => expect(listen).toHaveBeenCalledExactlyOnceWith(expected));
   });
 });
