@@ -1,10 +1,9 @@
 ---
 name: implement-feature
 description: "Implement a scoped feature in this repository, following local architecture and validating the result."
+disable-model-invocation: true
 argument-hint: "Describe the desired behavior and constraints"
-agent: agent
 ---
-
 Implement the requested feature in this repository.
 
 - Inspect the relevant app, nearby tests, and repository guidance before editing.

@@ -1,10 +1,9 @@
 ---
 name: debug-issue
 description: "Investigate a bug from its symptoms, find the root cause, and verify a focused fix."
+disable-model-invocation: true
 argument-hint: "Describe the observed behavior, expected behavior, and reproduction steps"
-agent: agent
 ---
-
 Investigate the reported issue in this repository.
 
 - Reproduce or trace the behavior from the provided symptoms; inspect the owning code path and nearby tests.
