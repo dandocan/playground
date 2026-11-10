@@ -1,10 +1,9 @@
 ---
 name: write-pr-description
 description: "Draft or improve a pull request title and description based on the actual changes. Use when summarizing a branch or diff for reviewers."
+disable-model-invocation: true
 argument-hint: "Provide the diff or branch context and any issue or motivation"
-agent: agent
 ---
-
 Write reviewer-oriented pull request text grounded in the requested work and the actual diff.
 
 **PR Title Convention:** All PR titles must follow the format `[type]([app]): [change summary]`
