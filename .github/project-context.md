@@ -20,6 +20,9 @@ See the [README](../README.md) for setup, environment variables, and root comman
 | Concern                   | Location                                                      | Notes                                          |
 | ------------------------- | ------------------------------------------------------------- | ---------------------------------------------- |
 | Web routes and page UI    | [`apps/web/src/app`](../apps/web/src/app)                     | App Router pages, layouts, and styles          |
+| Web component library     | [`apps/web/src/components/ui`](../apps/web/src/components/ui) | shadcn/ui components and their Storybook stories |
+| Web shared utilities      | [`apps/web/src/lib`](../apps/web/src/lib)                     | Shared helpers such as `cn`                    |
+| Storybook configuration   | [`apps/web/.storybook`](../apps/web/.storybook)               | Storybook setup for the web component library  |
 | Web runtime API proxy     | [`apps/web/src/app/api/[[...path]]/route.ts`](../apps/web/src/app/api/%5B%5B...path%5D%5D/route.ts) | Owns `/api` forwarding over the binding |
 | Vercel service routing    | [`vercel.json`](../vercel.json)                               | Service definitions, public routing, and bindings |
 | Web app development notes | [`apps/web/docs/README.md`](../apps/web/docs/README.md)       | UI structure, backend requests, and validation |
@@ -34,9 +37,9 @@ Keep frontend presentation and routing in the web app, and backend endpoints and
 ## Tests
 
 - API unit tests use Vitest and live alongside source as `*.spec.ts`; HTTP integration tests live in `apps/api/test` and use the e2e Vitest config.
-- Web tests use Node's built-in test runner and live in `apps/web/test`.
+- Web tests use Node's built-in test runner and live in `apps/web/test`. Component stories live next to their components and are built by `build-storybook`.
 - Prefer the owning app's test command while iterating, then use the root commands from the README when a change spans apps.
-- Pull requests run [`pull-request.yml`](workflows/pull-request.yml): `pnpm lint`, `pnpm test`, and `pnpm test:e2e` in one job, and `pnpm build` in another.
+- Pull requests run [`pull-request.yml`](workflows/pull-request.yml): `pnpm lint`, `pnpm test`, and `pnpm test:e2e` in one job, and `pnpm build` plus the web Storybook build in another.
 
 ## Keeping This Guide Useful
 
