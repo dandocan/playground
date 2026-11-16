@@ -16,8 +16,10 @@
   "prBodyColumns": ["Package", "Type", "Update", "Change"],
   "schedule": ["after 10pm every weekday", "before 5am on Monday"],
   "timezone": "UTC",
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "🤖 Dependency Dashboard",
+  "dependencyDashboard": {
+    "enabled": true,
+    "title": "🤖 Dependency Dashboard"
+  },
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["security"]
