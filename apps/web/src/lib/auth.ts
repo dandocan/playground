@@ -6,14 +6,27 @@ import { sendEmail } from "./email";
 
 // The pooled DATABASE_URL is for runtime queries; migrations use DATABASE_URL_UNPOOLED.
 const globalForPool = globalThis as unknown as { authPool?: Pool };
-const pool =
-  globalForPool.authPool ??
-  new Pool({ connectionString: process.env.DATABASE_URL, max: 5 });
-globalForPool.authPool = pool;
+function createPool() {
+  const created = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    max: 5,
+  });
+  // Without a listener, an error on an idle connection (e.g. Neon recycling it) crashes the process.
+  created.on("error", (error) =>
+    console.error("Auth database pool error:", error.message),
+  );
+  return created;
+}
+const pool = (globalForPool.authPool ??= createPool());
 
 const vercelOrigins = [process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL]
   .filter((host): host is string => Boolean(host))
   .map((host) => `https://${host}`);
+
+// In production the per-deployment URL would break OAuth callbacks and email links.
+if (process.env.VERCEL_ENV === "production" && !process.env.BETTER_AUTH_URL) {
+  throw new Error("BETTER_AUTH_URL must be set for production deployments.");
+}
 
 const baseURL =
   process.env.BETTER_AUTH_URL ?? vercelOrigins[0] ?? "http://localhost:3000";

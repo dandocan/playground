@@ -1,29 +1,34 @@
-http://localhost:3000/api/auth/ok
+### Manual auth smoke test (VS Code REST Client). Start the web app first: pnpm --filter web dev
+@baseUrl = http://localhost:3000
+@email = you@your-domain.com
+@password = change-me-to-a-long-password
 
-###
+### Health check
+GET {{baseUrl}}/api/auth/ok
 
-POST http://localhost:3000/api/auth/sign-up/email HTTP/1.1
-content-type: application/json
-
-{
-  "name": "Bruh",
-  "email": "delivered@resend.dev",
-  "password": "1234ABcd#!"
-}
-
-###
-
-POST http://localhost:3000/api/auth/sign-in/email HTTP/1.1
-content-type: application/json
+### 1. Sign up. Use an address you can read: Resend's test addresses (e.g. delivered@resend.dev) never show the link.
+POST {{baseUrl}}/api/auth/sign-up/email
+Content-Type: application/json
 
 {
-  "name": "Bruh",
-  "email": "delivered@resend.dev",
-  "password": "1234ABcd#!"
+  "name": "Manual Test",
+  "email": "{{email}}",
+  "password": "{{password}}"
 }
 
-###
-http://localhost:3000/api/auth/get-session
+### 2. Open the verification email link before signing in.
+### Without RESEND_API_KEY the link is printed in the dev server log instead.
+### Signing in before verifying returns 403.
+POST {{baseUrl}}/api/auth/sign-in/email
+Content-Type: application/json
 
-###
-http://localhost:3000/account
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### 3. Session for the cookie set by step 2
+GET {{baseUrl}}/api/auth/get-session
+
+### 4. Protected page: redirects to /sign-in without a session cookie
+GET {{baseUrl}}/account
