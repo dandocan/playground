@@ -1,0 +1,29 @@
+http://localhost:3000/api/auth/ok
+
+###
+
+POST http://localhost:3000/api/auth/sign-up/email HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Bruh",
+  "email": "delivered@resend.dev",
+  "password": "1234ABcd#!"
+}
+
+###
+
+POST http://localhost:3000/api/auth/sign-in/email HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Bruh",
+  "email": "delivered@resend.dev",
+  "password": "1234ABcd#!"
+}
+
+###
+http://localhost:3000/api/auth/get-session
+
+###
+http://localhost:3000/account
