@@ -20,7 +20,7 @@ export function AccountDetails() {
         <CardDescription>{user.email}</CardDescription>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        You're signed in.
+        You&apos;re signed in.
       </CardContent>
       <CardFooter>
         <SignOutButton />
