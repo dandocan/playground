@@ -30,7 +30,7 @@ export function AuthCard({
       </CardHeader>
       <CardContent className="grid gap-4">{children}</CardContent>
       {footer && (
-        <CardFooter className="justify-center gap-1 text-sm text-muted-foreground [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4">
+        <CardFooter className="justify-center gap-1 text-sm text-muted-foreground [&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4">
           {footer}
         </CardFooter>
       )}
