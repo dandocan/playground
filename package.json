@@ -14,7 +14,8 @@
     "lint": "pnpm -r run lint",
     "test": "pnpm -r run test",
     "test:e2e": "pnpm --filter api run test:e2e",
-    "db:migrate": "pnpm --filter web run db:migrate"
+    "db:migrate": "pnpm --filter web run db:migrate",
+    "env:sync": "node scripts/sync-vercel-env.mjs"
   },
   "license": "UNLICENSED",
   "devDependencies": {

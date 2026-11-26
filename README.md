@@ -43,6 +43,7 @@ Run these from the repository root:
 | `pnpm lint` | Lint both apps |
 | `pnpm test` | Run backend unit tests and frontend proxy and deployment configuration tests |
 | `pnpm test:e2e` | Run backend HTTP integration tests |
+| `pnpm env:sync` | Create or update the root `.env.local` with Vercel Development and Preview variables |
 
 To target one workspace, use commands such as `pnpm --filter web dev`
 or `pnpm --filter api start:dev`. Install dependencies from the root;
@@ -64,6 +65,30 @@ not during builds. Outside Vercel it defaults to `http://localhost:3001`.
 Next.js uses `PORT` (default 3000); NestJS uses `PORT`, then `API_PORT`, then
 3001. For ordinary workspace development, leave `PORT` unset so the two apps
 use different defaults.
+
+### Syncing variables from Vercel
+
+To develop against the Vercel project's variables, run from the repository root:
+
+```sh
+pnpm env:sync
+```
+
+This requires the Vercel CLI, authenticated (`vercel login`), and the repository
+linked to the project (`.vercel/project.json`). The script pulls the Preview and
+Development environments and writes them to the root `.env.local`:
+
+- Development values win when both environments define the same key.
+- Existing keys in `.env.local` are updated in place; new keys are appended,
+  and any local-only keys are left untouched.
+- Production is never pulled.
+- Vercel does not export Preview secrets. They are skipped with a warning, so
+  set those locally if needed.
+- Vercel system variables (`VERCEL_*`, including the rotating
+  `VERCEL_OIDC_TOKEN`) are included in the output.
+
+`.env*` files are gitignored, so the synced file stays local. Keys removed from
+Vercel are not removed from `.env.local`; delete them by hand.
 
 ## Vercel deployment
 
