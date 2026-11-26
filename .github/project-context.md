@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a pnpm workspace containing a Next.js frontend and a NestJS API. It is currently a starter application: the web app has a landing page, and the API exposes a basic greeting endpoint. Do not assume a database, authentication system, or established domain model exists.
+This is a pnpm workspace containing a Next.js frontend and a NestJS API. The web app has a landing page and Better Auth authentication (email and password, Google, GitHub) backed by Neon Postgres, and the API exposes a basic greeting endpoint. The API does not validate sessions yet, so its endpoints are public. Do not assume a domain model beyond users and sessions exists.
 
 See the [README](../README.md) for setup, environment variables, and root commands.
 
@@ -11,7 +11,7 @@ See the [README](../README.md) for setup, environment variables, and root comman
 - The frontend is a Next.js App Router application in `apps/web`.
 - The API is a NestJS application in `apps/api`; its entry point listens on `PORT`, then `API_PORT`, defaulting to `3001`.
 - The Next.js Node.js route handler at `apps/web/src/app/api/[[...path]]/route.ts` proxies `/api` and `/api/*` to `API_URL` at request time. It removes the `/api` prefix, so a browser request to `/api/users` reaches NestJS as `/users`.
-- Frontend code should use same-origin paths such as `/api/users`. Treat `/api` as reserved for the backend proxy; other Next.js routes under that prefix can shadow or conflict with it.
+- Frontend code should use same-origin paths such as `/api/users`. Treat `/api` as reserved for the backend proxy. The one exception is `apps/web/src/app/api/auth/[...all]/route.ts`, which serves Better Auth at `/api/auth/*` and takes precedence over the proxy, so NestJS cannot serve a `/auth/*` path.
 - The root `vercel.json` defines one project with `web` (Next.js) and `api` (NestJS) services. Only `web` has a public rewrite; `api` stays internal. The web proxy still exposes backend endpoints publicly.
 - `web` declares a service binding to `api`, which injects server-only `API_URL` at function runtime. Never configure that variable manually on Vercel or read it at build time or in middleware. A missing binding on Vercel is an explicit error; ordinary local development defaults to `http://localhost:3001`.
 
@@ -21,7 +21,8 @@ See the [README](../README.md) for setup, environment variables, and root comman
 | ------------------------- | ------------------------------------------------------------- | ---------------------------------------------- |
 | Web routes and page UI    | [`apps/web/src/app`](../apps/web/src/app)                     | App Router pages, layouts, and styles          |
 | Web component library     | [`apps/web/src/components/ui`](../apps/web/src/components/ui) | shadcn/ui components and their Storybook stories |
-| Web shared utilities      | [`apps/web/src/lib`](../apps/web/src/lib)                     | Shared helpers such as `cn`                    |
+| Web shared utilities      | [`apps/web/src/lib`](../apps/web/src/lib)                     | Shared helpers such as `cn`, plus the Better Auth server (`auth.ts`), client (`auth-client.ts`) and email sender |
+| Web auth UI               | [`apps/web/src/components/auth`](../apps/web/src/components/auth) | Sign-in, sign-up and password-reset forms with stories |
 | Storybook configuration   | [`apps/web/.storybook`](../apps/web/.storybook)               | Storybook setup for the web component library  |
 | Web runtime API proxy     | [`apps/web/src/app/api/[[...path]]/route.ts`](../apps/web/src/app/api/%5B%5B...path%5D%5D/route.ts) | Owns `/api` forwarding over the binding |
 | Vercel service routing    | [`vercel.json`](../vercel.json)                               | Service definitions, public routing, and bindings |

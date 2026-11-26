@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -21,6 +22,9 @@ export default function Home() {
           >
             Open NestJS API
           </a>
+          <Link className={styles.secondary} href="/sign-in">
+            Sign in
+          </Link>
           <a
             className={styles.secondary}
             href="https://nextjs.org/docs"
